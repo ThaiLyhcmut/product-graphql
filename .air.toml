@@ -1,0 +1,12 @@
+root = "."  # Thư mục gốc của dự án
+tmp_dir = "tmp"  # Thư mục tạm thời
+
+[build]
+  bin = "tmp/main.exe"  # Tên tệp thực thi sau khi biên dịch
+  cmd = "go build -o tmp/main.exe ."  # Lệnh biên dịch, trước khi chạy lệnh generate
+  include_ext = ["go", "yml"]  # Các phần mở rộng để theo dõi
+  exclude_dir = ["tmp"]  # Thư mục không theo dõi
+  watch_dir = ["."]  # Thư mục theo dõi
+
+[log]
+  level = "info"  # Cấp độ log

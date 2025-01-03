@@ -1,0 +1,21 @@
+# Định nghĩa loại Product
+type Product {
+  id: String
+  title: String
+  description: String
+  thumbnail: String # Đã sửa lỗi chính tả
+  price: String
+  discountPercent: String
+  stock: String
+  status: String
+  position: String
+  slug: String
+  featured: String
+}
+
+# Định nghĩa Input cho Product
+input ProductInput {
+  offset: Int
+  limit: Int
+  featured: String
+}

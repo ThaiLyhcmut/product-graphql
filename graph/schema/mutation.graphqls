@@ -1,0 +1,8 @@
+
+# Định nghĩa Mutaion type
+type Mutation {
+  loginAccount(account: LoginAccountInput!): Account
+  registerAccount(account: RegisterAccountInput!): Account
+  updateAccount(account: UpdateAccountInput): Account
+  createOtp(email: String!): OTP
+}

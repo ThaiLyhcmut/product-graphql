@@ -1,0 +1,5 @@
+# Định nghĩa Query type
+type Query {
+  getAccount: Account
+  getCategory(categoryID: String): [Category]
+}

@@ -1,0 +1,24 @@
+go mod init github.com/ThaiLyhcmut
+go get github.com/joho/godotenv
+
+
+tạo tools.go {
+  package tools
+
+  import (
+    _ "github.com/99designs/gqlgen"
+  )
+}
+
+go mod tidy
+go get -d github.com/99designs/gqlgen
+go run github.com/99designs/gqlgen init
+go get -u github.com/gin-gonic/gin
+go get github.com/joho/godotenv
+go get -u github.com/go-sql-driver/mysql
+go get -u gorm.io/gen
+go get -u gopkg.in/gomail.v2
+go get -u github.com/golang-jwt/jwt/v5
+go get -u github.com/gin-contrib/cors
+
+//go:generate go run github.com/99designs/gqlgen generate

@@ -1,0 +1,51 @@
+
+# Định nghĩa loại Account
+type Account {
+  id: String
+  fullName: String
+  email: String
+  address: String # Đã sửa lỗi chính tả
+  phone: String
+  avatar: String
+  sex: String
+  birthday: String
+  token: String
+  code: String
+  msg: String
+}
+
+
+# Định nghĩa Input để đăng ký tài khoản
+input RegisterAccountInput {
+  fullName: String!
+  email: String!
+  password: String!
+  otp: String!
+}
+
+# Định nghĩa Input để đăng nhập tài khoản
+input LoginAccountInput {
+  email: String!
+  password: String!
+}
+
+# Định nghĩa Input để cập nhật tài khoản
+input UpdateAccountInput {
+  fullName: String
+  adress: String
+  phone: String
+  avatar: String
+  sex: String
+  birthday: String
+}
+
+# Định nghĩa loại OTP
+type OTP {
+  code: String
+  msg: String
+}
+
+# Định nghĩa Input để tạo OTP
+input CreateOtpInput {
+  email: String!
+}
