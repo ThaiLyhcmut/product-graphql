@@ -1,6 +1,6 @@
 # Định nghĩa loại Product
 type Product {
-  id: String
+  id: Int
   title: String
   description: String
   thumbnail: String # Đã sửa lỗi chính tả

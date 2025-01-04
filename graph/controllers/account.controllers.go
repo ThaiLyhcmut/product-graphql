@@ -3,14 +3,13 @@ package controller
 import (
 	"ThaiLy/graph/model"
 	"ThaiLy/graph/service"
-	helper "ThaiLy/helpers"
 	"context"
 	"fmt"
 )
 
 type AccountController struct {
-	*service.OTPService
-	*service.AccountService
+	otpService     service.OTPService
+	accountService service.AccountService
 }
 
 func (a *AccountController) GetAccountController(ctx context.Context) (interface{}, error) {
@@ -22,19 +21,32 @@ func (a *AccountController) GetAccountController(ctx context.Context) (interface
 	if !ok {
 		return nil, fmt.Errorf("tạo tài khoản không thành công")
 	}
-	return &account, nil
+	return account, nil
 }
 
-func (a *AccountController) RegisterAccountController(accountInput model.RegisterAccountInput) (interface{}, error) {
-	if err := a.OTPService.DeletedOTP(accountInput.Otp, accountInput.Password); err != nil {
+func (a *AccountController) RegisterAccountController(accountInput model.RegisterAccountInput) (*model.Account, error) {
+	if err := a.otpService.Deleted(accountInput.Otp, accountInput.Password); err != nil {
 		return nil, err
 	}
-	result, err := a.AccountService.CreateAccount(accountInput.FullName, accountInput.Email, accountInput.Password)
+	result, err := a.accountService.Created(accountInput.FullName, accountInput.Email, accountInput.Password)
 	if err != nil {
 		return nil, err
 	}
-	account := result.(model.AccountDB)
-	token := helper.CreateJWT(account.ID)
+	account := result.(model.Account)
+	// token := helper.CreateJWT(account.ID)
+	// account.Token := token
+	return &account, nil
+}
 
-	return token, nil
+func (a *AccountController) LoginAccountController(accountInput model.LoginAccountInput) (*model.Account, error) {
+	result, err := a.accountService.FindOne(accountInput.Email, accountInput.Password)
+	if err != nil {
+		return nil, err
+	}
+	accountDB := result.(model.AccountDB)
+	account, err := accountDB.ToAccount()
+	if err != nil {
+		return nil, err
+	}
+	return account, nil
 }

@@ -1,7 +1,7 @@
 
 # Định nghĩa loại Account
 type Account {
-  id: String
+  id: Int
   fullName: String
   email: String
   address: String # Đã sửa lỗi chính tả

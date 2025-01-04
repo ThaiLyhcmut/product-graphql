@@ -3,7 +3,7 @@
 package model
 
 type Account struct {
-	ID       *string `json:"id,omitempty"`
+	ID       *int32  `json:"id,omitempty"`
 	FullName *string `json:"fullName,omitempty"`
 	Email    *string `json:"email,omitempty"`
 	Address  *string `json:"address,omitempty"`
@@ -17,7 +17,7 @@ type Account struct {
 }
 
 type Category struct {
-	ID          *string    `json:"id,omitempty"`
+	ID          *int32     `json:"id,omitempty"`
 	Title       *string    `json:"title,omitempty"`
 	Description *string    `json:"description,omitempty"`
 	Thumbnail   *string    `json:"thumbnail,omitempty"`
@@ -46,7 +46,7 @@ type Otp struct {
 }
 
 type Product struct {
-	ID              *string `json:"id,omitempty"`
+	ID              *int32  `json:"id,omitempty"`
 	Title           *string `json:"title,omitempty"`
 	Description     *string `json:"description,omitempty"`
 	Thumbnail       *string `json:"thumbnail,omitempty"`

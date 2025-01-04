@@ -13,7 +13,7 @@ import (
 
 // GetAccount is the resolver for the getAccount field.
 func (r *queryResolver) GetAccount(ctx context.Context) (*model.Account, error) {
-	result, err := r.AccountController.GetAccountController(ctx)
+	result, err := r.accountController.GetAccountController(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -29,7 +29,4 @@ func (r *queryResolver) GetCategory(ctx context.Context, categoryID *string) ([]
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 
-// tạo 1 struct để lưu con trỏ đến resolver
-type queryResolver struct {
-	*Resolver
-}
+type queryResolver struct{ *Resolver }

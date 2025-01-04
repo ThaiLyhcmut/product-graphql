@@ -1,16 +1,17 @@
 package service
 
 import (
-	"ThaiLy/configs"
 	"ThaiLy/graph/model"
 	"fmt"
 )
 
-type OTPService struct{}
+type OTPService struct {
+	database Database
+}
 
-func (o *OTPService) DeletedOTP(otp, email string) error {
+func (o *OTPService) Deleted(otp, email string) error {
 	// var otpModel model.Otp
-	result := configs.GetDB().Where("code = ? AND email = ?", otp, email).Delete(&model.OtpDB{})
+	result := GetDB().Where("code = ? AND email = ?", otp, email).Delete(&model.OtpDB{})
 	if result.Error != nil {
 		return fmt.Errorf("mã OTP không hợp lệ")
 	}

@@ -534,7 +534,7 @@ var sources = []*ast.Source{
 	{Name: "../schema/account.graphqls", Input: `
 # Định nghĩa loại Account
 type Account {
-  id: String
+  id: Int
   fullName: String
   email: String
   address: String # Đã sửa lỗi chính tả
@@ -586,7 +586,7 @@ input CreateOtpInput {
 	{Name: "../schema/category.graphqls", Input: `
 # Định nghĩa loại Category
 type Category {
-  id: String
+  id: Int
   title: String
   description: String
   thumbnail: String
@@ -608,7 +608,7 @@ type Mutation {
 `, BuiltIn: false},
 	{Name: "../schema/product.graphqls", Input: `# Định nghĩa loại Product
 type Product {
-  id: String
+  id: Int
   title: String
   description: String
   thumbnail: String # Đã sửa lỗi chính tả

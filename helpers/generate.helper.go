@@ -11,11 +11,11 @@ import (
 )
 
 type Claims struct {
-	ID                   uint // Email được lưu trong token
-	jwt.RegisteredClaims      // Thêm các trường chuẩn như exp, iat
+	ID                   int32 // Email được lưu trong token
+	jwt.RegisteredClaims       // Thêm các trường chuẩn như exp, iat
 }
 
-func CreateJWT(id uint) string {
+func CreateJWT(id int32) string {
 	claims := Claims{
 		ID: id, // Sử dụng email ở đây
 		RegisteredClaims: jwt.RegisteredClaims{

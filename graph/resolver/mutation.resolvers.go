@@ -13,12 +13,16 @@ import (
 
 // LoginAccount is the resolver for the loginAccount field.
 func (r *mutationResolver) LoginAccount(ctx context.Context, account model.LoginAccountInput) (*model.Account, error) {
-	return nil, nil
+	result, err := r.accountController.LoginAccountController(account)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
 
 // RegisterAccount is the resolver for the registerAccount field.
 func (r *mutationResolver) RegisterAccount(ctx context.Context, account model.RegisterAccountInput) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented: RegisterAccount - registerAccount"))
+	panic(fmt.Errorf("not implemented: UpdateAccount - updateAccount"))
 }
 
 // UpdateAccount is the resolver for the updateAccount field.
@@ -34,6 +38,4 @@ func (r *mutationResolver) CreateOtp(ctx context.Context, email string) (*model.
 // Mutation returns generated.MutationResolver implementation.
 func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
 
-type mutationResolver struct {
-	*Resolver
-}
+type mutationResolver struct{ *Resolver }

@@ -1,9 +1,9 @@
 package main
 
 import (
-	"ThaiLy/configs"
 	"ThaiLy/graph/generated"
 	"ThaiLy/graph/resolver"
+	"ThaiLy/graph/service"
 	"ThaiLy/middlewares"
 	"context"
 	"fmt"
@@ -32,8 +32,9 @@ func main() {
 	godotenv.Load()
 
 	fmt.Println("MySQL Name: ", os.Getenv("MYSQL_NAME"))
-	// Load database connection
-	configs.InitDB()
+
+	var db service.Database
+	db.InitDB()
 
 	// Create Gin router
 	r := gin.Default()
