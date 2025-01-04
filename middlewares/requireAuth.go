@@ -1,8 +1,8 @@
 package middlewares
 
 import (
-	"ThaiLy/configs"
 	"ThaiLy/graph/model"
+	"ThaiLy/graph/service"
 	helper "ThaiLy/helpers"
 	"strings"
 
@@ -23,7 +23,7 @@ func RequireAuth(c *gin.Context) {
 			Claims, _ := helper.ParseJWT(token)
 			if Claims != nil {
 				var account = model.AccountDB{}
-				result := configs.GetDB().Where("id = ?", Claims.ID).First(&account)
+				result := service.GetDB().Where("id = ?", Claims.ID).First(&account)
 				if result.Error != nil {
 					c.JSON(401, gin.H{
 						"code":    "error",

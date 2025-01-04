@@ -87,7 +87,7 @@ resolver:
 # gqlgen sẽ tìm kiếm bất kỳ tên loại nào trong schema trong các gói Go này
 # nếu chúng khớp, nó sẽ sử dụng chúng, nếu không sẽ tạo ra chúng.
 autobind:
-#  - "ThaiLy/graph/model"
+ - "ThaiLy/graph/model"
 
 # Phần này khai báo ánh xạ loại giữa hệ thống GraphQL và Go
 models:
@@ -99,7 +99,15 @@ models:
       - github.com/99designs/gqlgen/graphql.UUID
   Int:
     model:
-      - github.com/99designs/gqlgen/graphql.Int32
+      - github.com/99designs/gqlgen/graphql.Int
   Int64:
     model:
       - github.com/99designs/gqlgen/graphql.Int64
+  Category:
+    fields:
+      product:
+        resolver: true
+
+
+
+

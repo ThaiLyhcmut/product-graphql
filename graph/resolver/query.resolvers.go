@@ -8,22 +8,16 @@ import (
 	"ThaiLy/graph/generated"
 	"ThaiLy/graph/model"
 	"context"
-	"fmt"
 )
 
 // GetAccount is the resolver for the getAccount field.
 func (r *queryResolver) GetAccount(ctx context.Context) (*model.Account, error) {
-	result, err := r.accountController.GetAccountController(ctx)
-	if err != nil {
-		return nil, err
-	}
-	account := result.(model.Account)
-	return &account, nil
+	return r.accountController.GetAccountController(ctx)
 }
 
 // GetCategory is the resolver for the getCategory field.
 func (r *queryResolver) GetCategory(ctx context.Context, categoryID *string) ([]*model.Category, error) {
-	panic(fmt.Errorf("not implemented: GetCategory - getCategory"))
+	return r.categoryResolver.GetCategoryController(categoryID)
 }
 
 // Query returns generated.QueryResolver implementation.

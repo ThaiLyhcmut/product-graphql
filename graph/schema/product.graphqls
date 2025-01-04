@@ -1,10 +1,10 @@
 # Định nghĩa loại Product
 type Product {
-  id: Int
+  id: ID
   title: String
   description: String
   thumbnail: String # Đã sửa lỗi chính tả
-  price: String
+  price: Float
   discountPercent: String
   stock: String
   status: String

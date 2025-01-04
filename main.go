@@ -70,7 +70,7 @@ func main() {
 
 	// Gin routes foyground and query handler
 	r.GET("/", gin.WrapH(playground.Handler("GraphQL Playground", "/query")))
-	r.POST("/query", func(c *gin.Context) {
+	r.POST("/query", middlewares.RequireAuth, func(c *gin.Context) {
 		account, exists := c.Get("account")
 		if exists {
 			// Nếu account có, thêm account vào context

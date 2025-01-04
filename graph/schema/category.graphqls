@@ -1,7 +1,7 @@
 
 # Định nghĩa loại Category
 type Category {
-  id: Int
+  id: ID
   title: String
   description: String
   thumbnail: String
@@ -9,5 +9,5 @@ type Category {
   position: String
   deleted: Boolean
   slug: String
-  product(ProductInput: ProductInput): [Product]
+  product(ProductInput: ProductInput): [Product]!
 }

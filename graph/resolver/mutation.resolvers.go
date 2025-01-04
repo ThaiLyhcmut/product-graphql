@@ -8,31 +8,26 @@ import (
 	"ThaiLy/graph/generated"
 	"ThaiLy/graph/model"
 	"context"
-	"fmt"
 )
 
 // LoginAccount is the resolver for the loginAccount field.
 func (r *mutationResolver) LoginAccount(ctx context.Context, account model.LoginAccountInput) (*model.Account, error) {
-	result, err := r.accountController.LoginAccountController(account)
-	if err != nil {
-		return nil, err
-	}
-	return result, nil
+	return r.accountController.LoginAccountController(account)
 }
 
 // RegisterAccount is the resolver for the registerAccount field.
 func (r *mutationResolver) RegisterAccount(ctx context.Context, account model.RegisterAccountInput) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented: UpdateAccount - updateAccount"))
+	return r.accountController.RegisterAccountController(account)
 }
 
 // UpdateAccount is the resolver for the updateAccount field.
 func (r *mutationResolver) UpdateAccount(ctx context.Context, account *model.UpdateAccountInput) (*model.Account, error) {
-	panic(fmt.Errorf("not implemented: UpdateAccount - updateAccount"))
+	return r.accountController.UpdateAccountController(ctx, *account)
 }
 
 // CreateOtp is the resolver for the createOtp field.
 func (r *mutationResolver) CreateOtp(ctx context.Context, email string) (*model.Otp, error) {
-	panic(fmt.Errorf("not implemented: CreateOtp - createOtp"))
+	return r.accountController.CreateOtpController(email)
 }
 
 // Mutation returns generated.MutationResolver implementation.

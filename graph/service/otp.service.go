@@ -9,7 +9,7 @@ type OTPService struct {
 	database Database
 }
 
-func (o *OTPService) Deleted(otp, email string) error {
+func (o *OTPService) DeletedOtp(otp, email string) error {
 	// var otpModel model.Otp
 	result := GetDB().Where("code = ? AND email = ?", otp, email).Delete(&model.OtpDB{})
 	if result.Error != nil {

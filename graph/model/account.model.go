@@ -2,6 +2,7 @@ package model
 
 import (
 	helper "ThaiLy/helpers"
+	"database/sql"
 	"time"
 )
 
@@ -15,23 +16,23 @@ const (
 
 // User đại diện cho bảng users trong cơ sở dữ liệu
 type AccountDB struct {
-	ID             int32     `gorm:"primaryKey"`                                                             // Khóa chính
-	FullName       string    `gorm:"column:fullName"`                                                        // Cột fullName
-	Email          string    `gorm:"unique;column:email"`                                                    // Cột email và đảm bảo tính duy nhất
-	Password       string    `gorm:"column:password"`                                                        // Cột password
-	Status         string    `gorm:"column:status;size:16"`                                                  // Cột status
-	Address        string    `gorm:"column:address"`                                                         // Cột adress
-	Phone          string    `gorm:"column:phone"`                                                           // Cột phone
-	Avatar         string    `gorm:"column:avatar"`                                                          // Cột avatar
-	Sex            string    `gorm:"column:sex;default:'Khác"`                                               // Cột giới tính
-	Birthday       string    `gorm:"column:birthday;type:date"`                                              // Cột birthday
-	Deleted        bool      `gorm:"column:deleted;default:false"`                                           // Cột deleted
-	CreatedAt      time.Time `gorm:"column:createdAt;default:CURRENT_TIMESTAMP"`                             // Cột createdAt
-	UpdatedAt      time.Time `gorm:"column:updatedAt;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"` // Cột updatedAt
-	RequestFriends []byte    `gorm:"column:requestFriends"`                                                  // Cột requestFriends (dạng JSON)
-	AcceptFriends  []byte    `gorm:"column:acceptFriends"`                                                   // Cột acceptFriends (dạng JSON)
-	StatusOnline   string    `gorm:"column:statusOnline"`                                                    // Cột statusOnline
-	FriendList     []byte    `gorm:"column:friendList"`                                                      // Cột friendList (dạng JSON)
+	ID             string       `gorm:"primaryKey"`                                                             // Khóa chính
+	FullName       string       `gorm:"column:fullName"`                                                        // Cột fullName
+	Email          string       `gorm:"unique;column:email"`                                                    // Cột email và đảm bảo tính duy nhất
+	Password       string       `gorm:"column:password"`                                                        // Cột password
+	Status         string       `gorm:"column:status;size:16"`                                                  // Cột status
+	Address        string       `gorm:"column:address"`                                                         // Cột adress
+	Phone          string       `gorm:"column:phone"`                                                           // Cột phone
+	Avatar         string       `gorm:"column:avatar"`                                                          // Cột avatar
+	Sex            string       `gorm:"column:sex;default:'Khác"`                                               // Cột giới tính
+	Birthday       sql.NullTime `gorm:"column:birthday;type:date"`                                              // Cột birthday
+	Deleted        bool         `gorm:"column:deleted;default:false"`                                           // Cột deleted
+	CreatedAt      time.Time    `gorm:"column:createdAt;default:CURRENT_TIMESTAMP"`                             // Cột createdAt
+	UpdatedAt      time.Time    `gorm:"column:updatedAt;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"` // Cột updatedAt
+	RequestFriends []byte       `gorm:"column:requestFriends"`                                                  // Cột requestFriends (dạng JSON)
+	AcceptFriends  []byte       `gorm:"column:acceptFriends"`                                                   // Cột acceptFriends (dạng JSON)
+	StatusOnline   string       `gorm:"column:statusOnline"`                                                    // Cột statusOnline
+	FriendList     []byte       `gorm:"column:friendList"`                                                      // Cột friendList (dạng JSON)
 }
 
 func (AccountDB) TableName() string {
@@ -43,6 +44,12 @@ func stringPointer(s string) *string {
 }
 
 func (accountDB *AccountDB) ToAccount() (*Account, error) {
+	var birthdayStr string
+	if !accountDB.Birthday.Valid {
+		birthdayStr = accountDB.Birthday.Time.Format("2006-01-02") // Định dạng thành chuỗi YYYY-MM-DD
+	} else {
+		birthdayStr = "" // Nếu `nil`, gán giá trị rỗng
+	}
 	// Chuyển đổi từ AccountDB sang Account
 	account := &Account{
 		ID:       &accountDB.ID,
@@ -52,7 +59,7 @@ func (accountDB *AccountDB) ToAccount() (*Account, error) {
 		Phone:    &accountDB.Phone,
 		Avatar:   &accountDB.Avatar,
 		Sex:      &accountDB.Sex,
-		Birthday: &accountDB.Birthday,
+		Birthday: &birthdayStr,
 	}
 
 	token := helper.CreateJWT(accountDB.ID)

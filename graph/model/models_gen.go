@@ -3,7 +3,7 @@
 package model
 
 type Account struct {
-	ID       *int32  `json:"id,omitempty"`
+	ID       *string `json:"id,omitempty"`
 	FullName *string `json:"fullName,omitempty"`
 	Email    *string `json:"email,omitempty"`
 	Address  *string `json:"address,omitempty"`
@@ -17,7 +17,7 @@ type Account struct {
 }
 
 type Category struct {
-	ID          *int32     `json:"id,omitempty"`
+	ID          *string    `json:"id,omitempty"`
 	Title       *string    `json:"title,omitempty"`
 	Description *string    `json:"description,omitempty"`
 	Thumbnail   *string    `json:"thumbnail,omitempty"`
@@ -25,7 +25,7 @@ type Category struct {
 	Position    *string    `json:"position,omitempty"`
 	Deleted     *bool      `json:"deleted,omitempty"`
 	Slug        *string    `json:"slug,omitempty"`
-	Product     []*Product `json:"product,omitempty"`
+	Product     []*Product `json:"product"`
 }
 
 type CreateOtpInput struct {
@@ -46,22 +46,22 @@ type Otp struct {
 }
 
 type Product struct {
-	ID              *int32  `json:"id,omitempty"`
-	Title           *string `json:"title,omitempty"`
-	Description     *string `json:"description,omitempty"`
-	Thumbnail       *string `json:"thumbnail,omitempty"`
-	Price           *string `json:"price,omitempty"`
-	DiscountPercent *string `json:"discountPercent,omitempty"`
-	Stock           *string `json:"stock,omitempty"`
-	Status          *string `json:"status,omitempty"`
-	Position        *string `json:"position,omitempty"`
-	Slug            *string `json:"slug,omitempty"`
-	Featured        *string `json:"featured,omitempty"`
+	ID              *string  `json:"id,omitempty"`
+	Title           *string  `json:"title,omitempty"`
+	Description     *string  `json:"description,omitempty"`
+	Thumbnail       *string  `json:"thumbnail,omitempty"`
+	Price           *float64 `json:"price,omitempty"`
+	DiscountPercent *string  `json:"discountPercent,omitempty"`
+	Stock           *string  `json:"stock,omitempty"`
+	Status          *string  `json:"status,omitempty"`
+	Position        *string  `json:"position,omitempty"`
+	Slug            *string  `json:"slug,omitempty"`
+	Featured        *string  `json:"featured,omitempty"`
 }
 
 type ProductInput struct {
-	Offset   *int32  `json:"offset,omitempty"`
-	Limit    *int32  `json:"limit,omitempty"`
+	Offset   *int    `json:"offset,omitempty"`
+	Limit    *int    `json:"limit,omitempty"`
 	Featured *string `json:"featured,omitempty"`
 }
 
@@ -77,7 +77,7 @@ type RegisterAccountInput struct {
 
 type UpdateAccountInput struct {
 	FullName *string `json:"fullName,omitempty"`
-	Adress   *string `json:"adress,omitempty"`
+	Address  *string `json:"address,omitempty"`
 	Phone    *string `json:"phone,omitempty"`
 	Avatar   *string `json:"avatar,omitempty"`
 	Sex      *string `json:"sex,omitempty"`

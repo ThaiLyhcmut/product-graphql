@@ -1,7 +1,6 @@
-
 # Định nghĩa loại Account
 type Account {
-  id: Int
+  id: ID
   fullName: String
   email: String
   address: String # Đã sửa lỗi chính tả
@@ -32,7 +31,7 @@ input LoginAccountInput {
 # Định nghĩa Input để cập nhật tài khoản
 input UpdateAccountInput {
   fullName: String
-  adress: String
+  address: String
   phone: String
   avatar: String
   sex: String

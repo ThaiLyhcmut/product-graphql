@@ -33,6 +33,7 @@ type Config struct {
 }
 
 type ResolverRoot interface {
+	Category() CategoryResolver
 	Mutation() MutationResolver
 	Query() QueryResolver
 }
@@ -531,10 +532,9 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	{Name: "../schema/account.graphqls", Input: `
-# Định nghĩa loại Account
+	{Name: "../schema/account.graphqls", Input: `# Định nghĩa loại Account
 type Account {
-  id: Int
+  id: ID
   fullName: String
   email: String
   address: String # Đã sửa lỗi chính tả
@@ -565,7 +565,7 @@ input LoginAccountInput {
 # Định nghĩa Input để cập nhật tài khoản
 input UpdateAccountInput {
   fullName: String
-  adress: String
+  address: String
   phone: String
   avatar: String
   sex: String
@@ -586,7 +586,7 @@ input CreateOtpInput {
 	{Name: "../schema/category.graphqls", Input: `
 # Định nghĩa loại Category
 type Category {
-  id: Int
+  id: ID
   title: String
   description: String
   thumbnail: String
@@ -594,7 +594,7 @@ type Category {
   position: String
   deleted: Boolean
   slug: String
-  product(ProductInput: ProductInput): [Product]
+  product(ProductInput: ProductInput): [Product]!
 }
 `, BuiltIn: false},
 	{Name: "../schema/mutation.graphqls", Input: `
@@ -608,11 +608,11 @@ type Mutation {
 `, BuiltIn: false},
 	{Name: "../schema/product.graphqls", Input: `# Định nghĩa loại Product
 type Product {
-  id: Int
+  id: ID
   title: String
   description: String
   thumbnail: String # Đã sửa lỗi chính tả
-  price: String
+  price: Float
   discountPercent: String
   stock: String
   status: String

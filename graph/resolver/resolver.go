@@ -8,4 +8,5 @@ import controller "ThaiLy/graph/controllers"
 
 type Resolver struct {
 	accountController controller.AccountController
+	categoryResolver  controller.CategoryController
 }
