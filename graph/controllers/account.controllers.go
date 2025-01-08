@@ -67,7 +67,7 @@ func (a *AccountController) LoginAccountController(accountInput model.LoginAccou
 	return account, nil
 }
 
-func (a *AccountController) UpdateAccountController(ctx context.Context, accountInut model.UpdateAccountInput) (*model.Account, error) {
+func (a *AccountController) UpdateAccountController(ctx context.Context, accountInput model.UpdateAccountInput) (*model.Account, error) {
 	myFunc := "UpdateAccountController"
 	result := ctx.Value(middlewares.AccountKey)
 	if result == nil {
@@ -77,7 +77,8 @@ func (a *AccountController) UpdateAccountController(ctx context.Context, account
 	if !ok {
 		return nil, fmt.Errorf("lấy thông tin không thành công %s", myFunc)
 	}
-	_, err := a.accountService.UpdateAccountByID(accountDB.ID, accountInut)
+	fmt.Println(*accountInput.FullName)
+	_, err := a.accountService.UpdateAccountByID(accountDB, accountInput)
 	if err != nil {
 		return nil, err
 	}

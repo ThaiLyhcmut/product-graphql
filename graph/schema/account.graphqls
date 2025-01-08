@@ -1,13 +1,13 @@
 # Định nghĩa loại Account
 type Account {
-  id: ID
-  fullName: String
-  email: String
-  address: String # Đã sửa lỗi chính tả
-  phone: String
-  avatar: String
-  sex: String
-  birthday: String
+  id: Int  @goTag(key: "gorm", value: "primaryKey")
+  fullName: String @goTag(key: "gorm", value: "fullName")
+  email: String @goTag(key: "gorm", value: "email")
+  address: String @goTag(key: "gorm", value: "address")
+  phone: String @goTag(key: "gorm", value: "phone")
+  avatar: String @goTag(key: "gorm", value: "avatar")
+  sex: String @goTag(key: "gorm", value: "sex")
+  birthday: Time @goTag(key: "gorm", value: "sex")
   token: String
   code: String
   msg: String
@@ -16,7 +16,7 @@ type Account {
 
 # Định nghĩa Input để đăng ký tài khoản
 input RegisterAccountInput {
-  fullName: String!
+  fullName: String! 
   email: String!
   password: String!
   otp: String!
@@ -30,12 +30,12 @@ input LoginAccountInput {
 
 # Định nghĩa Input để cập nhật tài khoản
 input UpdateAccountInput {
-  fullName: String
-  address: String
-  phone: String
-  avatar: String
-  sex: String
-  birthday: String
+  fullName: String @goTag(key: "gorm", value: "column:fullName")
+  address: String @goTag(key: "gorm", value: "column:address")
+  phone: String @goTag(key: "gorm", value: "column:phone")
+  avatar: String @goTag(key: "gorm", value: "column:avatar")
+  sex: String @goTag(key: "gorm", value: "column:sex")
+  birthday: Time @goTag(key: "gorm", value: "column:birthday")
 }
 
 # Định nghĩa loại OTP

@@ -534,14 +534,14 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 var sources = []*ast.Source{
 	{Name: "../schema/account.graphqls", Input: `# Định nghĩa loại Account
 type Account {
-  id: ID
-  fullName: String
-  email: String
-  address: String # Đã sửa lỗi chính tả
-  phone: String
-  avatar: String
-  sex: String
-  birthday: String
+  id: Int  @goTag(key: "gorm", value: "primaryKey")
+  fullName: String @goTag(key: "gorm", value: "fullName")
+  email: String @goTag(key: "gorm", value: "email")
+  address: String @goTag(key: "gorm", value: "address")
+  phone: String @goTag(key: "gorm", value: "phone")
+  avatar: String @goTag(key: "gorm", value: "avatar")
+  sex: String @goTag(key: "gorm", value: "sex")
+  birthday: Time @goTag(key: "gorm", value: "sex")
   token: String
   code: String
   msg: String
@@ -550,7 +550,7 @@ type Account {
 
 # Định nghĩa Input để đăng ký tài khoản
 input RegisterAccountInput {
-  fullName: String!
+  fullName: String! 
   email: String!
   password: String!
   otp: String!
@@ -564,12 +564,12 @@ input LoginAccountInput {
 
 # Định nghĩa Input để cập nhật tài khoản
 input UpdateAccountInput {
-  fullName: String
-  address: String
-  phone: String
-  avatar: String
-  sex: String
-  birthday: String
+  fullName: String @goTag(key: "gorm", value: "column:fullName")
+  address: String @goTag(key: "gorm", value: "column:address")
+  phone: String @goTag(key: "gorm", value: "column:phone")
+  avatar: String @goTag(key: "gorm", value: "column:avatar")
+  sex: String @goTag(key: "gorm", value: "column:sex")
+  birthday: Time @goTag(key: "gorm", value: "column:birthday")
 }
 
 # Định nghĩa loại OTP
@@ -586,14 +586,14 @@ input CreateOtpInput {
 	{Name: "../schema/category.graphqls", Input: `
 # Định nghĩa loại Category
 type Category {
-  id: ID
-  title: String
-  description: String
-  thumbnail: String
-  status: String
-  position: String
-  deleted: Boolean
-  slug: String
+  id: Int @goTag(key: "gorm", value: "primaryKey")
+  title: String @goTag(key: "gorm", value: "title")
+  description: String @goTag(key: "gorm", value: "description")
+  thumbnail: String @goTag(key: "gorm", value: "thumbnail")
+  status: String @goTag(key: "gorm", value: "status")
+  position: Int @goTag(key: "gorm", value: "position")
+  deleted: Boolean @goTag(key: "gorm", value: "deleted")
+  slug: String @goTag(key: "gorm", value: "slug")
   product(ProductInput: ProductInput): [Product]!
 }
 `, BuiltIn: false},
@@ -608,18 +608,19 @@ type Mutation {
 `, BuiltIn: false},
 	{Name: "../schema/product.graphqls", Input: `# Định nghĩa loại Product
 type Product {
-  id: ID
-  title: String
-  description: String
-  thumbnail: String # Đã sửa lỗi chính tả
-  price: Float
-  discountPercent: String
-  stock: String
-  status: String
-  position: String
-  slug: String
-  featured: String
+  id: Int @goTag(key: "gorm", value: "primaryKey") # Khóa chính
+  title: String @goTag(key: "gorm", value: "column:title") # Cột title
+  description: String @goTag(key: "gorm", value: "column:description") # Cột description
+  thumbnail: String @goTag(key: "gorm", value: "column:thumbnail") # Cột thumbnail
+  price: Float @goTag(key: "gorm", value: "column:price") # Cột price
+  discountPercent: Int @goTag(key: "gorm", value: "column:discountPercent") # Cột discountPercent
+  stock: Int @goTag(key: "gorm", value: "column:stock") # Cột stock
+  status: String @goTag(key: "gorm", value: "column:status") # Cột status
+  position: Int @goTag(key: "gorm", value: "column:position") # Cột position
+  slug: String @goTag(key: "gorm", value: "column:slug") # Cột slug
+  featured: String @goTag(key: "gorm", value: "column:featured") # Cột featured
 }
+
 
 # Định nghĩa Input cho Product
 input ProductInput {
@@ -632,5 +633,12 @@ type Query {
   getAccount: Account
   getCategory(categoryID: String): [Category]
 }`, BuiltIn: false},
+	{Name: "../schema/schema.directives.graphqls", Input: `directive @goTag(
+    key: String!
+    value: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+
+scalar Time
+`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)

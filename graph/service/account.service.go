@@ -27,15 +27,15 @@ func (a *AccountService) FindAccountByEmailPassword(Email, Password string) (int
 	var account model.AccountDB
 	result := GetDB().Where(
 		"email = ? AND password = ?", Email, Password,
-	).First(&account)
+	).First(&account).Limit(1)
 	if result.Error != nil {
 		return nil, fmt.Errorf("lấy tài khoảng không thành công")
 	}
 	return account, nil
 }
 
-func (a *AccountService) UpdateAccountByID(ID string, accountInput model.UpdateAccountInput) (interface{}, error) {
-	result := GetDB().Model(&model.AccountDB{}).Where("id = ?", ID).Updates(accountInput)
+func (a *AccountService) UpdateAccountByID(accountDB model.AccountDB, accountInput model.UpdateAccountInput) (interface{}, error) {
+	result := GetDB().Model(&accountDB).Updates(accountInput)
 	if result.Error != nil {
 		return nil, fmt.Errorf("cập nhật không thành công")
 	}

@@ -9,11 +9,12 @@ import (
 	"ThaiLy/graph/model"
 	"ThaiLy/graph/service"
 	"context"
+	"fmt"
 )
 
 // Product is the resolver for the product field.
 func (r *categoryResolver) Product(ctx context.Context, obj *model.Category, productInput *model.ProductInput) ([]*model.Product, error) {
-	// Default values
+	// // Default values
 	var offset, limit int
 	offset, limit = 0, 10
 	var featured *string
@@ -32,7 +33,6 @@ func (r *categoryResolver) Product(ctx context.Context, obj *model.Category, pro
 	// Query products based on categoryID and other inputs
 	var products []model.ProductDB
 	result := service.GetDB().Where("categoryID = ?", obj.ID).Limit(limit).Offset(offset)
-
 	// Apply filter for featured if it's provided
 	if featured != nil {
 		result = result.Where("featured = ?", *featured)
@@ -44,6 +44,7 @@ func (r *categoryResolver) Product(ctx context.Context, obj *model.Category, pro
 
 	// Fetch the products from the database
 	result = result.Find(&products)
+	fmt.Println((products))
 	if result.Error != nil {
 		return nil, result.Error
 	}
@@ -52,6 +53,8 @@ func (r *categoryResolver) Product(ctx context.Context, obj *model.Category, pro
 	var productList []*model.Product
 	for _, p := range products {
 		product := p.ToProduct()
+		fmt.Println(product)
+		// fmt.Println(p, product)
 		productList = append(productList, product)
 	}
 

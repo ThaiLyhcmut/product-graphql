@@ -1,6 +1,6 @@
 services:
-  graphql:
-    image: thaily/graphql
+  gqlgen:
+    image: thaily/gqlgen
     env_file:
       - .env
     ports:

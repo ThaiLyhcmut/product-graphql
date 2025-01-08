@@ -1,17 +1,18 @@
 # Định nghĩa loại Product
 type Product {
-  id: ID
-  title: String
-  description: String
-  thumbnail: String # Đã sửa lỗi chính tả
-  price: Float
-  discountPercent: String
-  stock: String
-  status: String
-  position: String
-  slug: String
-  featured: String
+  id: Int @goTag(key: "gorm", value: "primaryKey") # Khóa chính
+  title: String @goTag(key: "gorm", value: "column:title") # Cột title
+  description: String @goTag(key: "gorm", value: "column:description") # Cột description
+  thumbnail: String @goTag(key: "gorm", value: "column:thumbnail") # Cột thumbnail
+  price: Float @goTag(key: "gorm", value: "column:price") # Cột price
+  discountPercent: Int @goTag(key: "gorm", value: "column:discountPercent") # Cột discountPercent
+  stock: Int @goTag(key: "gorm", value: "column:stock") # Cột stock
+  status: String @goTag(key: "gorm", value: "column:status") # Cột status
+  position: Int @goTag(key: "gorm", value: "column:position") # Cột position
+  slug: String @goTag(key: "gorm", value: "column:slug") # Cột slug
+  featured: String @goTag(key: "gorm", value: "column:featured") # Cột featured
 }
+
 
 # Định nghĩa Input cho Product
 input ProductInput {

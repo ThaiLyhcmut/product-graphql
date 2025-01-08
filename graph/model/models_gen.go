@@ -2,29 +2,33 @@
 
 package model
 
+import (
+	"time"
+)
+
 type Account struct {
-	ID       *string `json:"id,omitempty"`
-	FullName *string `json:"fullName,omitempty"`
-	Email    *string `json:"email,omitempty"`
-	Address  *string `json:"address,omitempty"`
-	Phone    *string `json:"phone,omitempty"`
-	Avatar   *string `json:"avatar,omitempty"`
-	Sex      *string `json:"sex,omitempty"`
-	Birthday *string `json:"birthday,omitempty"`
-	Token    *string `json:"token,omitempty"`
-	Code     *string `json:"code,omitempty"`
-	Msg      *string `json:"msg,omitempty"`
+	ID       *int       `json:"id,omitempty" gorm:"primaryKey"`
+	FullName *string    `json:"fullName,omitempty" gorm:"fullName"`
+	Email    *string    `json:"email,omitempty" gorm:"email"`
+	Address  *string    `json:"address,omitempty" gorm:"address"`
+	Phone    *string    `json:"phone,omitempty" gorm:"phone"`
+	Avatar   *string    `json:"avatar,omitempty" gorm:"avatar"`
+	Sex      *string    `json:"sex,omitempty" gorm:"sex"`
+	Birthday *time.Time `json:"birthday,omitempty" gorm:"sex"`
+	Token    *string    `json:"token,omitempty"`
+	Code     *string    `json:"code,omitempty"`
+	Msg      *string    `json:"msg,omitempty"`
 }
 
 type Category struct {
-	ID          *string    `json:"id,omitempty"`
-	Title       *string    `json:"title,omitempty"`
-	Description *string    `json:"description,omitempty"`
-	Thumbnail   *string    `json:"thumbnail,omitempty"`
-	Status      *string    `json:"status,omitempty"`
-	Position    *string    `json:"position,omitempty"`
-	Deleted     *bool      `json:"deleted,omitempty"`
-	Slug        *string    `json:"slug,omitempty"`
+	ID          *int       `json:"id,omitempty" gorm:"primaryKey"`
+	Title       *string    `json:"title,omitempty" gorm:"title"`
+	Description *string    `json:"description,omitempty" gorm:"description"`
+	Thumbnail   *string    `json:"thumbnail,omitempty" gorm:"thumbnail"`
+	Status      *string    `json:"status,omitempty" gorm:"status"`
+	Position    *int       `json:"position,omitempty" gorm:"position"`
+	Deleted     *bool      `json:"deleted,omitempty" gorm:"deleted"`
+	Slug        *string    `json:"slug,omitempty" gorm:"slug"`
 	Product     []*Product `json:"product"`
 }
 
@@ -46,17 +50,17 @@ type Otp struct {
 }
 
 type Product struct {
-	ID              *string  `json:"id,omitempty"`
-	Title           *string  `json:"title,omitempty"`
-	Description     *string  `json:"description,omitempty"`
-	Thumbnail       *string  `json:"thumbnail,omitempty"`
-	Price           *float64 `json:"price,omitempty"`
-	DiscountPercent *string  `json:"discountPercent,omitempty"`
-	Stock           *string  `json:"stock,omitempty"`
-	Status          *string  `json:"status,omitempty"`
-	Position        *string  `json:"position,omitempty"`
-	Slug            *string  `json:"slug,omitempty"`
-	Featured        *string  `json:"featured,omitempty"`
+	ID              *int     `json:"id,omitempty" gorm:"primaryKey"`
+	Title           *string  `json:"title,omitempty" gorm:"column:title"`
+	Description     *string  `json:"description,omitempty" gorm:"column:description"`
+	Thumbnail       *string  `json:"thumbnail,omitempty" gorm:"column:thumbnail"`
+	Price           *float64 `json:"price,omitempty" gorm:"column:price"`
+	DiscountPercent *int     `json:"discountPercent,omitempty" gorm:"column:discountPercent"`
+	Stock           *int     `json:"stock,omitempty" gorm:"column:stock"`
+	Status          *string  `json:"status,omitempty" gorm:"column:status"`
+	Position        *int     `json:"position,omitempty" gorm:"column:position"`
+	Slug            *string  `json:"slug,omitempty" gorm:"column:slug"`
+	Featured        *string  `json:"featured,omitempty" gorm:"column:featured"`
 }
 
 type ProductInput struct {
@@ -76,10 +80,10 @@ type RegisterAccountInput struct {
 }
 
 type UpdateAccountInput struct {
-	FullName *string `json:"fullName,omitempty"`
-	Address  *string `json:"address,omitempty"`
-	Phone    *string `json:"phone,omitempty"`
-	Avatar   *string `json:"avatar,omitempty"`
-	Sex      *string `json:"sex,omitempty"`
-	Birthday *string `json:"birthday,omitempty"`
+	FullName *string    `json:"fullName,omitempty" gorm:"column:fullName"`
+	Address  *string    `json:"address,omitempty" gorm:"column:address"`
+	Phone    *string    `json:"phone,omitempty" gorm:"column:phone"`
+	Avatar   *string    `json:"avatar,omitempty" gorm:"column:avatar"`
+	Sex      *string    `json:"sex,omitempty" gorm:"column:sex"`
+	Birthday *time.Time `json:"birthday,omitempty" gorm:"column:birthday"`
 }

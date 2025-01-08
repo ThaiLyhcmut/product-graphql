@@ -6,12 +6,12 @@ import (
 )
 
 type CategoryDB struct {
-	ID          string    `gorm:"primaryKey"`                   // Khóa chính
+	ID          int       `gorm:"primaryKey"`                   // Khóa chính
 	Title       string    `gorm:"column:title"`                 // Cột title
 	Description string    `gorm:"column:description"`           // Cột description
 	Thumbnail   string    `gorm:"column:thumbnail"`             // Cột thumbnail
 	Status      string    `gorm:"column:status"`                // Cột status
-	Postion     string    `gorm:"column:postion"`               // Cột postion
+	Postion     int       `gorm:"column:postion"`               // Cột postion
 	Deleted     bool      `gorm:"column:deleted;default:false"` // Cột deleted
 	Slug        string    `gorm:"column:slug"`                  // Cột slug
 	CreatedAt   time.Time `gorm:"column:createdAt"`             // Cột createdAt
@@ -35,14 +35,14 @@ func (categoryDB *CategoryDB) ToCategory() (*Category, error) {
 
 	// Chuyển đổi từ CategoryDB sang Category
 	category := &Category{
-		ID:          stringPointer(categoryDB.ID),
-		Title:       stringPointer(categoryDB.Title),
-		Description: stringPointer(categoryDB.Description),
-		Thumbnail:   stringPointer(categoryDB.Thumbnail),
-		Status:      stringPointer(categoryDB.Status),
-		Position:    stringPointer(categoryDB.Postion),
-		Deleted:     boolPointer(categoryDB.Deleted),
-		Slug:        stringPointer(categoryDB.Slug),
+		ID:          &(categoryDB.ID),
+		Title:       &(categoryDB.Title),
+		Description: &(categoryDB.Description),
+		Thumbnail:   &(categoryDB.Thumbnail),
+		Status:      &(categoryDB.Status),
+		Position:    &(categoryDB.Postion),
+		Deleted:     &(categoryDB.Deleted),
+		Slug:        &(categoryDB.Slug),
 		// Product sẽ được gán giá trị nil, thêm logic xử lý nếu cần thiết
 		Product: nil,
 	}

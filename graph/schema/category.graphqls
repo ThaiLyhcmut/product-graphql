@@ -1,13 +1,13 @@
 
 # Định nghĩa loại Category
 type Category {
-  id: ID
-  title: String
-  description: String
-  thumbnail: String
-  status: String
-  position: String
-  deleted: Boolean
-  slug: String
+  id: Int @goTag(key: "gorm", value: "primaryKey")
+  title: String @goTag(key: "gorm", value: "title")
+  description: String @goTag(key: "gorm", value: "description")
+  thumbnail: String @goTag(key: "gorm", value: "thumbnail")
+  status: String @goTag(key: "gorm", value: "status")
+  position: Int @goTag(key: "gorm", value: "position")
+  deleted: Boolean @goTag(key: "gorm", value: "deleted")
+  slug: String @goTag(key: "gorm", value: "slug")
   product(ProductInput: ProductInput): [Product]!
 }
