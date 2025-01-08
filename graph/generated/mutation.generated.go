@@ -18,7 +18,7 @@ import (
 type MutationResolver interface {
 	LoginAccount(ctx context.Context, account model.LoginAccountInput) (*model.Account, error)
 	RegisterAccount(ctx context.Context, account model.RegisterAccountInput) (*model.Account, error)
-	UpdateAccount(ctx context.Context, account *model.UpdateAccountInput) (*model.Account, error)
+	UpdateAccount(ctx context.Context, account model.UpdateAccountInput) (*model.Account, error)
 	CreateOtp(ctx context.Context, email string) (*model.Otp, error)
 }
 
@@ -123,18 +123,18 @@ func (ec *executionContext) field_Mutation_updateAccount_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_updateAccount_argsAccount(
 	ctx context.Context,
 	rawArgs map[string]any,
-) (*model.UpdateAccountInput, error) {
+) (model.UpdateAccountInput, error) {
 	if _, ok := rawArgs["account"]; !ok {
-		var zeroVal *model.UpdateAccountInput
+		var zeroVal model.UpdateAccountInput
 		return zeroVal, nil
 	}
 
 	ctx = graphql.WithPathContext(ctx, graphql.NewPathWithField("account"))
 	if tmp, ok := rawArgs["account"]; ok {
-		return ec.unmarshalOUpdateAccountInput2ᚖThaiLyᚋgraphᚋmodelᚐUpdateAccountInput(ctx, tmp)
+		return ec.unmarshalNUpdateAccountInput2ThaiLyᚋgraphᚋmodelᚐUpdateAccountInput(ctx, tmp)
 	}
 
-	var zeroVal *model.UpdateAccountInput
+	var zeroVal model.UpdateAccountInput
 	return zeroVal, nil
 }
 
@@ -312,7 +312,7 @@ func (ec *executionContext) _Mutation_updateAccount(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (any, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().UpdateAccount(rctx, fc.Args["account"].(*model.UpdateAccountInput))
+		return ec.resolvers.Mutation().UpdateAccount(rctx, fc.Args["account"].(model.UpdateAccountInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)

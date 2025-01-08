@@ -24,7 +24,7 @@ type AccountDB struct {
 	Phone          string    `gorm:"column:phone"`                                                           // Cột phone
 	Avatar         string    `gorm:"column:avatar"`                                                          // Cột avatar
 	Sex            string    `gorm:"column:sex;default:'Khác"`                                               // Cột giới tính
-	Birthday       time.Time `gorm:"column:birthday;default:CURRENT_TIMESTAMP"`                              // Cột birthday
+	Birthday       time.Time `gorm:"column:birthday;type:date;default:CURRENT_TIMESTAMP"`                    // Cột birthday
 	Deleted        bool      `gorm:"column:deleted;default:false"`                                           // Cột deleted
 	CreatedAt      time.Time `gorm:"column:createdAt;default:CURRENT_TIMESTAMP"`                             // Cột createdAt
 	UpdatedAt      time.Time `gorm:"column:updatedAt;default:CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"` // Cột updatedAt

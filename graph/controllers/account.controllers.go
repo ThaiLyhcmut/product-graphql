@@ -34,7 +34,7 @@ func (a *AccountController) GetAccountController(ctx context.Context) (*model.Ac
 }
 
 func (a *AccountController) RegisterAccountController(accountInput model.RegisterAccountInput) (*model.Account, error) {
-	if err := a.otpService.DeletedOtp(accountInput.Otp, accountInput.Password); err != nil {
+	if err := a.otpService.DeletedOtp(accountInput.Otp, accountInput.Email); err != nil {
 		return nil, err
 	}
 	result, err := a.accountService.CreateAccount(accountInput.FullName, accountInput.Email, accountInput.Password)
@@ -49,8 +49,6 @@ func (a *AccountController) RegisterAccountController(accountInput model.Registe
 	if err != nil {
 		return nil, err
 	}
-	// token := helper.CreateJWT(account.ID)
-	// account.Token := token
 	return account, nil
 }
 
@@ -77,7 +75,6 @@ func (a *AccountController) UpdateAccountController(ctx context.Context, account
 	if !ok {
 		return nil, fmt.Errorf("lấy thông tin không thành công %s", myFunc)
 	}
-	fmt.Println(*accountInput.FullName)
 	_, err := a.accountService.UpdateAccountByID(accountDB, accountInput)
 	if err != nil {
 		return nil, err

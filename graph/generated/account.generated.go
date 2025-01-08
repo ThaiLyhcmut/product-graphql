@@ -852,6 +852,11 @@ func (ec *executionContext) unmarshalNRegisterAccountInput2ThaiLyᚋgraphᚋmode
 	return res, graphql.ErrorOnPath(ctx, err)
 }
 
+func (ec *executionContext) unmarshalNUpdateAccountInput2ThaiLyᚋgraphᚋmodelᚐUpdateAccountInput(ctx context.Context, v any) (model.UpdateAccountInput, error) {
+	res, err := ec.unmarshalInputUpdateAccountInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) marshalOAccount2ᚖThaiLyᚋgraphᚋmodelᚐAccount(ctx context.Context, sel ast.SelectionSet, v *model.Account) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
@@ -864,14 +869,6 @@ func (ec *executionContext) marshalOOTP2ᚖThaiLyᚋgraphᚋmodelᚐOtp(ctx cont
 		return graphql.Null
 	}
 	return ec._OTP(ctx, sel, v)
-}
-
-func (ec *executionContext) unmarshalOUpdateAccountInput2ᚖThaiLyᚋgraphᚋmodelᚐUpdateAccountInput(ctx context.Context, v any) (*model.UpdateAccountInput, error) {
-	if v == nil {
-		return nil, nil
-	}
-	res, err := ec.unmarshalInputUpdateAccountInput(ctx, v)
-	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
 // endregion ***************************** type.gotpl *****************************

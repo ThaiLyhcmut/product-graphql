@@ -72,7 +72,7 @@ type ComplexityRoot struct {
 		CreateOtp       func(childComplexity int, email string) int
 		LoginAccount    func(childComplexity int, account model.LoginAccountInput) int
 		RegisterAccount func(childComplexity int, account model.RegisterAccountInput) int
-		UpdateAccount   func(childComplexity int, account *model.UpdateAccountInput) int
+		UpdateAccount   func(childComplexity int, account model.UpdateAccountInput) int
 	}
 
 	OTP struct {
@@ -310,7 +310,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.UpdateAccount(childComplexity, args["account"].(*model.UpdateAccountInput)), true
+		return e.complexity.Mutation.UpdateAccount(childComplexity, args["account"].(model.UpdateAccountInput)), true
 
 	case "OTP.code":
 		if e.complexity.OTP.Code == nil {
@@ -602,7 +602,7 @@ type Category {
 type Mutation {
   loginAccount(account: LoginAccountInput!): Account
   registerAccount(account: RegisterAccountInput!): Account
-  updateAccount(account: UpdateAccountInput): Account
+  updateAccount(account: UpdateAccountInput!): Account
   createOtp(email: String!): OTP
 }
 `, BuiltIn: false},

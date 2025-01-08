@@ -8,6 +8,7 @@ import (
 	"ThaiLy/graph/generated"
 	"ThaiLy/graph/model"
 	"context"
+	"fmt"
 )
 
 // LoginAccount is the resolver for the loginAccount field.
@@ -21,8 +22,9 @@ func (r *mutationResolver) RegisterAccount(ctx context.Context, account model.Re
 }
 
 // UpdateAccount is the resolver for the updateAccount field.
-func (r *mutationResolver) UpdateAccount(ctx context.Context, account *model.UpdateAccountInput) (*model.Account, error) {
-	return r.accountController.UpdateAccountController(ctx, *account)
+func (r *mutationResolver) UpdateAccount(ctx context.Context, account model.UpdateAccountInput) (*model.Account, error) {
+	fmt.Println(account)
+	return r.accountController.UpdateAccountController(ctx, account)
 }
 
 // CreateOtp is the resolver for the createOtp field.

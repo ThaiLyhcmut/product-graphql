@@ -24,15 +24,9 @@ func RequireAuth(c *gin.Context) {
 			if Claims != nil {
 				var account = model.AccountDB{}
 				result := service.GetDB().Where("id = ?", Claims.ID).First(&account)
-				if result.Error != nil {
-					c.JSON(401, gin.H{
-						"code":    "error",
-						"massage": "Người dùng cố tình hack hệ thống mình à",
-					})
-					c.Abort()
-					return
+				if result.Error == nil {
+					c.Set("account", account)
 				}
-				c.Set("account", account)
 			}
 		}
 	}
